@@ -147,39 +147,8 @@
         return this;
     };
 
-    Store.prototype.setValue = function setValue(key, value) {
-        this.store_cache[key] = value;
-
-        var config = {};
-        if (localStorage.config)
-            config = JSON.parse(localStorage.config);
-
-        config[key] = value;
-        localStorage.config = JSON.stringify(config);
-        return value;
-    };
-
-    Store.prototype.getValue = function getValue(key, defaultValue) {
-        if (typeof this.store_cache[key] != "undefined")
-            return this.store_cache[key];
-
-        if (!localStorage.config)
-            return defaultValue;
-
-        var config = JSON.parse(localStorage.config);
-        if (typeof config[key] == "undefined")
-            return defaultValue;
-
-        this.store_cache[key] = config[key];
-        return config[key];
-    };
-
     Store.prototype.keyExists = function keyExists(key) {
-        if (!localStorage.config)
-            return false;
-
-        var config = JSON.parse(localStorage.config);
-        return (config[key] != undefined);
+        if (localStorage.getItem(key) === null) { return undefined; }
     };
 
     Store.prototype.encode = function encode(key, object) {
