@@ -13,7 +13,6 @@
 
         var key;
 
-
         if (defaults !== undefined) {
             for (key in defaults) {
                 if (defaults.hasOwnProperty(key) && this.get(key) === undefined) {
@@ -74,7 +73,6 @@
             }else{
                 localStorage.setItem(this.store_ns + "." + this.store_name + "." + name, value);
             }
-
         }
 
         return this;
@@ -99,7 +97,6 @@
         }else{
             name = this.store_ns + "." + this.store_name + ".";
         }
-
 
         for (i = (localStorage.length - 1); i >= 0; i--) {
             if (localStorage.key(i).substring(0, name.length) === name) {
@@ -148,7 +145,15 @@
     };
 
     Store.prototype.keyExists = function keyExists(key) {
-        if (localStorage.getItem(key) === null) { return undefined; }
+        var exists = false;
+
+        if (localStorage.getItem(key) === null) {
+          exists = false;
+         }else{
+         exists = true;
+        }
+
+        return exists;
     };
 
     Store.prototype.encode = function encode(key, object) {
